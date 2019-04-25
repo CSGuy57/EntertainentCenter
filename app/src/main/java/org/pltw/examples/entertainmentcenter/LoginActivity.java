@@ -2,9 +2,9 @@ package org.pltw.examples.entertainmentcenter;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -18,9 +18,6 @@ import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
-
-import org.pltw.examples.entertainmentcenter.MainActivity;
-import org.pltw.examples.entertainmentcenter.R;
 
 public class LoginActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getSimpleName();

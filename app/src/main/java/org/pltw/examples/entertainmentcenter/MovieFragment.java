@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.DataQueryBuilder;
 
 import java.sql.Wrapper;
 import java.util.ArrayList;
@@ -46,7 +47,10 @@ public class MovieFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
 
-        Backendless.Data.of(Movie.class).find(new AsyncCallback<List<Movie>>() {
+        DataQueryBuilder queryBuilder = DataQueryBuilder.create();
+        queryBuilder.setSortBy("Rating DESC", "Title");
+
+        Backendless.Data.of(Movie.class).find(queryBuilder, new AsyncCallback<List<Movie>>() {
             @Override
             public void handleResponse(List<Movie> response) {
                 List<Entertainment> movies = new ArrayList<>();

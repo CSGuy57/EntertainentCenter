@@ -5,11 +5,9 @@ import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
@@ -31,6 +29,7 @@ public class CreateFragment extends Fragment {
     private EditText etTitle;
     private EditText etDescription;
     private RatingBar rbRating;
+    private String createType;
 
     public CreateFragment() {
         // Required empty public constructor
@@ -42,11 +41,21 @@ public class CreateFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create, container, false);
 
+        createType = getArguments().getString(MainActivity.CREATE_TYPE);
+
         btAddItem = view.findViewById(R.id.bt_add_item);
         spType = view.findViewById(R.id.sp_type);
         etTitle = view.findViewById(R.id.et_title);
         etDescription = view.findViewById(R.id.et_description);
         rbRating = view.findViewById(R.id.rb_rating);
+
+        if(createType.equals(MovieFragment.class.getSimpleName())) {
+            spType.setSelection(0);
+        } else if (createType.equals(VideoGameFragment.class.getSimpleName())) {
+            spType.setSelection(1);
+        } else if (createType.equals(BoardGameFragment.class.getSimpleName())) {
+            spType.setSelection(2);
+        }
 
         btAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,11 +162,5 @@ public class CreateFragment extends Fragment {
                 getString(R.string.progress_title),
                 getString(R.string.saving),
                 true);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Toast.makeText(getActivity(), "Fragment detached", Toast.LENGTH_SHORT).show();
     }
 }

@@ -44,13 +44,15 @@
     <string name="password_length_error">Your password must be at least 6 characters long.</string>
     <string name="password_email_same_error">Your email and password cannot be the same.</string>
     <string name="invalid_email_format_error">The entered email was in the incorrect format.</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Home</string>
     <string name="create_a_new_entertainment_item">Create a new entertainment item</string>
+    <string name="edit_an_entertainment_item">Edit an entertainment item</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
-    <string name="add_item">Add Item</string>
+    <string name="save_item">Save Item</string>
     <string name="saving">Saving...</string>
+    <string name="snack_bar_undo">Undo Delete</string>
+    <string name="snack_bar_title">Item Deleted</string>
     <string-array name="entertainment_items">
         <item>Movie</item>
         <item>Video Game</item>

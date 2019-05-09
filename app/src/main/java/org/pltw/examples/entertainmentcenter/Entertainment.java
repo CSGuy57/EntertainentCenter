@@ -1,6 +1,8 @@
 package org.pltw.examples.entertainmentcenter;
 
-public abstract class Entertainment {
+import java.io.Serializable;
+
+public abstract class Entertainment implements Serializable {
     private String title;
     private String description;
     private float rating;

@@ -1,12 +1,11 @@
 package org.pltw.examples.entertainmentcenter;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +15,8 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
 
-import java.sql.Wrapper;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +24,7 @@ import java.util.stream.Collectors;
 public class MovieFragment extends Fragment {
     private static final String TAG = MovieFragment.class.getSimpleName();
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter movieAdapter;
+    private EntertainmentAdapter movieAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     public MovieFragment() {
@@ -61,6 +58,8 @@ public class MovieFragment extends Fragment {
 
                 movieAdapter = new EntertainmentAdapter(movies);
                 recyclerView.setAdapter(movieAdapter);
+
+                enableSwipeToDeleteAndUndo();
             }
 
             @Override
@@ -70,5 +69,20 @@ public class MovieFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        movieAdapter.deleteEntertainmentItem();
+    }
+
+    private void enableSwipeToDeleteAndUndo() {
+        SwipeToDeleteCallback swipeToDeleteCallback =
+                new SwipeToDeleteCallback(movieAdapter);
+
+        ItemTouchHelper itemTouchHelper = new
+                ItemTouchHelper(swipeToDeleteCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 }

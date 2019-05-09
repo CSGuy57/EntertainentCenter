@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity
 
     private FloatingActionButton fab;
     public static final String CREATE_TYPE = "org.pltw.examples.CREATETYPE";
+    public static final String ET_ITEM = "org.pltw.examples.ET_ITEM";
+    public static final String DISPLAY_FRAGMENT = "org.pltw.examples.DISPLAY_FRAGMENT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,23 +42,33 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         if(findViewById(R.id.content_frame) != null){
-            WelcomeFragment welcomeFragment = new WelcomeFragment();
+            Fragment fragment = new WelcomeFragment();
+            Intent intent = getIntent();
+
+            if(intent != null) {
+                String fragmentToShow = intent.getStringExtra(DISPLAY_FRAGMENT);
+                if(fragmentToShow != null) {
+                    if (fragmentToShow.equals(Movie.class.getSimpleName())) {
+                        fragment = new MovieFragment();
+                    }
+                } else {
+                    fragment = new WelcomeFragment();
+                }
+            }
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.content_frame, welcomeFragment).commit();
+                    .add(R.id.content_frame, fragment).commit();
         }
-
     }
 
     @Override
@@ -115,7 +127,7 @@ public class MainActivity extends AppCompatActivity
             ft.commit();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

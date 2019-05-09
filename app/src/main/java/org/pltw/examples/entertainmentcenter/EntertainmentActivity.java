@@ -11,7 +11,7 @@ public class EntertainmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entertainment);
 
-        Fragment fragment = new CreateFragment();
+        Fragment fragment = new EntertainmentFragment();
         fragment.setArguments(getIntent().getExtras());
 
         getSupportFragmentManager().beginTransaction().add(R.id.content_frame, fragment).commit();

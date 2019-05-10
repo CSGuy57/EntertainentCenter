@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         if(findViewById(R.id.content_frame) != null){
-            Fragment fragment = new WelcomeFragment();
+            Fragment fragment = null;
             Intent intent = getIntent();
 
             if(intent != null) {
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity
                     } else if (fragmentToShow.equals(VideoGame.class.getSimpleName())) {
                         fragment = new VideoGameFragment();
                     } else if (fragmentToShow.equals(BoardGame.class.getSimpleName())) {
-                        fragment = new MovieFragment();
+                        fragment = new BoardGameFragment();
                     }
                 } else {
                     fragment = new WelcomeFragment();

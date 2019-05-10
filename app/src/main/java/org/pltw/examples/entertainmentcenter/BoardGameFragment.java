@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,14 +26,13 @@ import java.util.List;
 public class BoardGameFragment extends Fragment {
     private static final String TAG = MovieFragment.class.getSimpleName();
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter boardGameAdapter;
+    private EntertainmentAdapter boardGameAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
 
     public BoardGameFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +61,8 @@ public class BoardGameFragment extends Fragment {
 
                 boardGameAdapter = new EntertainmentAdapter(boardGames);
                 recyclerView.setAdapter(boardGameAdapter);
+
+                enableSwipeToDeleteAndUndo();
             }
 
             @Override
@@ -70,5 +72,20 @@ public class BoardGameFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        boardGameAdapter.deleteEntertainmentItem();
+    }
+
+    private void enableSwipeToDeleteAndUndo() {
+        SwipeToDeleteCallback swipeToDeleteCallback =
+                new SwipeToDeleteCallback(boardGameAdapter);
+
+        ItemTouchHelper itemTouchHelper = new
+                ItemTouchHelper(swipeToDeleteCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 }

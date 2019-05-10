@@ -2,11 +2,11 @@ package org.pltw.examples.entertainmentcenter;
 
 
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,14 +26,13 @@ import java.util.List;
 public class VideoGameFragment extends Fragment {
     private static final String TAG = VideoGameFragment.class.getSimpleName();
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter videoGameAdapter;
+    private EntertainmentAdapter videoGameAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
 
     public VideoGameFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +61,8 @@ public class VideoGameFragment extends Fragment {
 
                 videoGameAdapter = new EntertainmentAdapter(videoGames);
                 recyclerView.setAdapter(videoGameAdapter);
+
+                enableSwipeToDeleteAndUndo();
             }
 
             @Override
@@ -71,5 +72,20 @@ public class VideoGameFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        videoGameAdapter.deleteEntertainmentItem();
+    }
+
+    private void enableSwipeToDeleteAndUndo() {
+        SwipeToDeleteCallback swipeToDeleteCallback =
+                new SwipeToDeleteCallback(videoGameAdapter);
+
+        ItemTouchHelper itemTouchHelper = new
+                ItemTouchHelper(swipeToDeleteCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 }

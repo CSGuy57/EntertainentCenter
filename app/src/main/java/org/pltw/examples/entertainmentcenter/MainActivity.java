@@ -60,6 +60,10 @@ public class MainActivity extends AppCompatActivity
                 if(fragmentToShow != null) {
                     if (fragmentToShow.equals(Movie.class.getSimpleName())) {
                         fragment = new MovieFragment();
+                    } else if (fragmentToShow.equals(VideoGame.class.getSimpleName())) {
+                        fragment = new VideoGameFragment();
+                    } else if (fragmentToShow.equals(BoardGame.class.getSimpleName())) {
+                        fragment = new MovieFragment();
                     }
                 } else {
                     fragment = new WelcomeFragment();

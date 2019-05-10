@@ -145,7 +145,13 @@ public class EntertainmentFragment extends Fragment {
     }
 
     private void createVideoGame() {
-        VideoGame videoGame = new VideoGame();
+        VideoGame videoGame;
+        if (editItem != null) {
+            videoGame = (VideoGame) editItem;
+        } else {
+            videoGame = new VideoGame();
+        }
+
         populateEntertainmentFields(videoGame);
 
         final ProgressDialog pDialog = showSavingDialog();
@@ -158,6 +164,7 @@ public class EntertainmentFragment extends Fragment {
                 pDialog.dismiss();
 
                 Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra(MainActivity.DISPLAY_FRAGMENT, VideoGame.class.getSimpleName());
                 startActivity(intent);
             }
 
@@ -169,7 +176,13 @@ public class EntertainmentFragment extends Fragment {
     }
 
     private void createBoardGame() {
-        BoardGame boardGame = new BoardGame();
+        BoardGame boardGame;
+        if (editItem != null) {
+            boardGame = (BoardGame) editItem;
+        } else {
+            boardGame = new BoardGame();
+        }
+
         populateEntertainmentFields(boardGame);
 
         final ProgressDialog pDialog = showSavingDialog();
@@ -182,6 +195,7 @@ public class EntertainmentFragment extends Fragment {
                 pDialog.dismiss();
 
                 Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra(MainActivity.DISPLAY_FRAGMENT, BoardGame.class.getSimpleName());
                 startActivity(intent);
             }
 

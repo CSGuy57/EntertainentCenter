@@ -13,6 +13,7 @@ import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,14 +39,14 @@ public class WelcomeFragment extends Fragment {
 
         String name = currentUser.getProperty("name").toString();
 
-        tvWelcomeMessage.setText("Welcome, " + name + " to your fabulous Entertainment Center!");
+        tvWelcomeMessage.setText(name + ", your favorite entertainment is: ");
+
+        List<Entertainment> favoriteEntertainment = new ArrayList<>();
 
         Backendless.Data.of(Movie.class).find(new AsyncCallback<List<Movie>>() {
             @Override
             public void handleResponse(List<Movie> response) {
-                for(Movie m : response) {
-                    tvWelcomeMessage.append("\n\n" + m.getTitle());
-                }
+                favoriteEntertainment.add(response.get(0));
             }
 
             @Override
